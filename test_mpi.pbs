@@ -1,0 +1,70 @@
+#!/bin/bash
+# Job 01_test2
+#PBS -N 01_test2
+# Output files
+#PBS -o ./01_test3_256.o
+#PBS -e ./01_test3_256.e
+# Queue name
+#PBS -q short_cpuQ
+# Set the maximum wall time
+#PBS -l walltime=0:20:00
+# Number of nodes, cpus, mpi processors and amount of memory
+#PBS -l select=1:ncpus=4:mpiprocs=4:mem=1mb
+# Mail information
+#PBS -m abe
+#PBS -M anne.sikkerboel@unitn.it
+
+# Modules for C and MPI
+module load gcc91
+module load mpich-3.2.1--gcc-9.1.0
+
+gcc() {
+    gcc-9.1.0 "$@"
+}
+gcc --version
+mpicc --version
+
+# To check the architecture
+lscpu
+
+# Select the working directory 
+cd /home/anne.sikkerboel/IPCcluster/H3_running_code
+
+# Before running the code should be compiled
+mpicc matTParV2.c -o matTParV2.out
+mpiexec -np 1 ./matTParV2.out
+mpiexec -np 1 ./matTParV2.out
+mpiexec -np 1 ./matTParV2.out
+mpiexec -np 1 ./matTParV2.out
+mpiexec -np 2 ./matTParV2.out
+mpiexec -np 2 ./matTParV2.out
+mpiexec -np 2 ./matTParV2.out
+mpiexec -np 2 ./matTParV2.out
+mpiexec -np 4 ./matTParV2.out
+mpiexec -np 4 ./matTParV2.out
+mpiexec -np 4 ./matTParV2.out
+mpiexec -np 4 ./matTParV2.out
+mpiexec -np 8 ./matTParV2.out
+mpiexec -np 8 ./matTParV2.out
+mpiexec -np 8 ./matTParV2.out
+mpiexec -np 8 ./matTParV2.out
+mpiexec -np 16 ./matTParV2.out
+mpiexec -np 16 ./matTParV2.out
+mpiexec -np 16 ./matTParV2.out
+mpiexec -np 16 ./matTParV2.out
+mpiexec -np 32 ./matTParV2.out
+mpiexec -np 32 ./matTParV2.out
+mpiexec -np 32 ./matTParV2.out
+mpiexec -np 32 ./matTParV2.out
+mpiexec -np 64 ./matTParV2.out
+mpiexec -np 64 ./matTParV2.out
+mpiexec -np 64 ./matTParV2.out
+mpiexec -np 64 ./matTParV2.out
+# If you set the number of mpi processors in line 12, here it is enough to type
+# mpiexec ./code.out
+
+mpicc task2BlockSeq.c -o matrixT_sequential.out
+mpiexec -np  1 ./matrixT_sequential.out
+mpiexec -np  1 ./matrixT_sequential.out
+mpiexec -np  1 ./matrixT_sequential.out
+mpiexec -np  1 ./matrixT_sequential.out

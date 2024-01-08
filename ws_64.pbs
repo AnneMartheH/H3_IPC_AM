@@ -1,0 +1,44 @@
+#!/bin/bash
+# Job ws_64
+#PBS -N ws_64
+# Output files
+#PBS -o ./ws_64_2.o
+#PBS -e ./ws_64_2.e
+# Queue name
+#PBS -q short_cpuQ
+# Set the maximum wall time
+#PBS -l walltime=0:20:00
+# Number of nodes, cpus, mpi processors and amount of memory
+#PBS -l select=1:ncpus=4:mpiprocs=4:mem=1mb
+# Mail information
+#PBS -m abe
+#PBS -M anne.sikkerboel@unitn.it
+
+# Modules for C and MPI
+module load gcc91
+module load mpich-3.2.1--gcc-9.1.0
+
+gcc() {
+    gcc-9.1.0 "$@"
+}
+gcc --version
+mpicc --version
+
+# To check the architecture
+lscpu
+
+# Select the working directory 
+cd /home/anne.sikkerboel/IPCcluster/H3/H3_testfile
+
+# Before running the code should be compiled
+
+mpicc ws_64.c -o ws_64.out
+
+mpiexec -np 64 ./ws_64.out
+mpiexec -np 64 ./ws_64.out
+mpiexec -np 64 ./ws_64.out
+mpiexec -np 64 ./ws_64.out
+# If you set the number of mpi processors in line 12, here it is enough to type
+# mpiexec ./code.out
+
+
